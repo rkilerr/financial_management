@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  amount: 9.99
+  odate: 2023-01-17 11:34:15
+  description: MyString
+  category: one
+
+two:
+  amount: 9.99
+  odate: 2023-01-17 11:34:15
+  description: MyString
+  category: two
