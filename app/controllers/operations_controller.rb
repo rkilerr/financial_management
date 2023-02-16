@@ -21,6 +21,7 @@ class OperationsController < ApplicationController
 
   # POST /operations or /operations.json
   def create
+    puts operation_params
     @operation = Operation.new(operation_params)
 
     respond_to do |format|
