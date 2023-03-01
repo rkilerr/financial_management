@@ -1,8 +1,27 @@
 <h1>Reports#report_by_dates</h1>
+<canvas id="myChart" width="600" height="400"></canvas>
+<script>
+  (function () {
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const data = {
+      labels: <%= raw @dates %>,
+      datasets: [{
+        label: 'Exchange Rate',
+        data: <%= @amounts %>,
+        fill: false,
+        borderColor: 'rgb(75, 192, 192)',
+        tension: 0.1
+      }]
+    };
 
+    const config = {
+      type: 'line',
+      data: data,
+      options: {
+        responsive: false
+      }
+    };
 
-<div id="operations">
-  <% @operations.each do |operation| %>
-    <%= render operation %>
-  <% end %>
-</div>
+    const myChart = new Chart(ctx, config);
+  })()
+</script>

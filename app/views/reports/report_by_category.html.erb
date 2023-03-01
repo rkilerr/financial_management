@@ -1,7 +1,27 @@
 <h1>Reports#report_by_category</h1>
+<canvas id="myChart2" width="600" height="400"></canvas>
+<script>
+  (function () {
+    const ctx = document.getElementById('myChart2').getContext('2d');
+    const data = {
+      labels: <%= raw @names %>,
+      datasets: [{
+        label: 'Exchange Rate',
+        data: <%= @values %>,
+        fill: false,
+        backgroundColors: <%= raw generate_colors(@names.length) %>,
+        tension: 0.1
+      }]
+    };
 
-<div id="operations">
-  <% @operations.each do |operation| %>
-    <%= render operation %>
-  <% end %>
-</div>
+    const config = {
+      type: 'doughnut',
+      data: data,
+      options: {
+        responsive: false
+      }
+    };
+
+    const myChart = new Chart(ctx, config);
+  })()
+</script>

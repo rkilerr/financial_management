@@ -1,21 +1,22 @@
-<h1>Reports#index</h1>
+<h1>Генератор звітів</h1>
 
-<form action="report_by_category" method="GET">
-    category type: <input type="text" name="category_type">
-    <br />
-    <button type="sumbit">
-        Filter by category type
-    </button>
-</form>
-
-<br />
-
-<form action="report_by_dates" method="GET">
-    start date: <input type="date" name="start_date">
-    <br />
-    end date: <input type="date" name="end_date">
-    <br />
-    <button type="sumbit">
-        Filter by category dates
-    </button>
-</form>
+<%= form_with url: { action: "generate_report" }, method: :post do |form| %>
+    <div>
+        Дата YYYY-MM-DD <%= form.datetime_field :start_date %>
+    </div>
+    <div>
+        Дата YYYY-MM-DD <%= form.datetime_field :end_date %>
+    </div>
+    <div>
+        Тип операції <%= form.select(:transaction_type, options_for_select(['витрата', 'дохід'])) %>
+    </div>
+    <div>
+        Категорія <%= form.select(:category_id, options_for_select(@categories)) %>
+    </div>
+    <div>
+        <%= form.submit "Згенерувати", class: "btn btn-primary", name: "report"%>
+        <%= submit_tag("Очистити", { :name => 'reset', :id => 'reset_button', :type => "reset", :class => "btn btn-danger" }) %>
+        <%= form.submit "Графік", class: "btn btn-success", name: "report" %>
+        <%= form.submit "По датам", name: "report", class: "btn btn-success" %>
+    </div>
+<% end %>

@@ -1,14 +1,35 @@
-<p style="color: green"><%= notice %></p>
+<h1 style="margin-left: 80px">Транзакції</h1>
 
-<h1>Operations</h1>
 
-<div id="operations">
-  <% @operations.each do |operation| %>
-    <%= render operation %>
-    <p>
-      <%= link_to "Show this operation", operation %>
-    </p>
+<div class="input-group mb-3" style="margin-left: 80px">
+  <%= form_with(url: operations_path, method: :get, :html => { :style => 'display:flex;' }) do |form| %>
+    <div>
+      <%= form.select :category_id, options_for_select(@categories) %>
+    </div>
+    <%= form.submit 'Пошук', name: nil, class: "p-0 btn btn-outline-secondary", id: "button-addon2" %>
   <% end %>
 </div>
 
-<%= link_to "New operation", new_operation_path %>
+<div id="operations" class="rounded-4 table-responsive text-nowrap" style="border-color:#707070; margin-left: 80px; margin-right: 80px; background-color: #E8E8E8">
+    <table class="table table-bordered table-hover table-fixed">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col" style="width: 8px;">#</th>
+        <th scope="col" style="width: 8px;">Категорія</th>
+        <th scope="col" style="width: 10px">Тип Операції</th>
+        <th scope="col" style="width: 8px;">Сума</th>
+        <th scope="col" style="width: 8px;">Дата</th>
+        <th scope="col">Опис</th>
+        <th scope="col" style="width: 8px;">Управління</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @operations.each do |operation| %>
+        <%= render operation %>
+      <% end %>
+    </tbody>
+    </table>
+</div>
+
+<%= paginate @operations %>
+<%= link_to "Додати нову транзакцію", new_operation_path, class: "btn btn-primary", style: "margin: 50px 0px 0px 80px" %>

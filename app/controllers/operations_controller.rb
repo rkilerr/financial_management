@@ -1,32 +1,30 @@
 class OperationsController < ApplicationController
   before_action :set_operation, only: %i[ show edit update destroy ]
 
-  # GET /operations or /operations.json
   def index
-    @operations = Operation.all
+    if params[:category_id] && params[:category_id].length != 0
+      @operations = Operation.page(params[:page]).where(category_id: params[:category_id])
+    else
+      @operations = Operation.page(params[:page])
+    end
+    @categories = Category.all.map { |item| [item.name, item.id] }.insert(0, ["Фільтр по категоріям", ""])
   end
 
-  # GET /operations/1 or /operations/1.json
-  def show
-  end
-
-  # GET /operations/new
   def new
     @operation = Operation.new
+    @categories = Category.all.map { |item| [item.name, item.id] }
   end
 
-  # GET /operations/1/edit
   def edit
+    @categories = Category.all.map { |item| [item.name, item.id] }
   end
 
-  # POST /operations or /operations.json
   def create
-    puts operation_params
     @operation = Operation.new(operation_params)
 
     respond_to do |format|
       if @operation.save
-        format.html { redirect_to operation_url(@operation), notice: "Operation was successfully created." }
+        format.html { redirect_to operations_path, notice: "Operation was successfully created." }
         format.json { render :show, status: :created, location: @operation }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -35,7 +33,6 @@ class OperationsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /operations/1 or /operations/1.json
   def update
     respond_to do |format|
       if @operation.update(operation_params)
@@ -48,7 +45,6 @@ class OperationsController < ApplicationController
     end
   end
 
-  # DELETE /operations/1 or /operations/1.json
   def destroy
     @operation.destroy
 
@@ -59,13 +55,11 @@ class OperationsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_operation
       @operation = Operation.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def operation_params
-      params.require(:operation).permit(:amount, :odate, :description, :category_id)
+      params.require(:operation).permit(:amount, :odate, :description, :category_id, :transaction_type)
     end
 end

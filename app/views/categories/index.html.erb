@@ -1,14 +1,31 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Categories</h1>
+<h1 style="margin-left: 80px">Категорії витрат/доходів</h1>
 
-<div id="categories">
-  <% @categories.each do |category| %>
-    <%= render category %>
-    <p>
-      <%= link_to "Show this category", category %>
-    </p>
+
+<div class="input-group mb-3" style="margin-left: 80px">
+  <%= form_with(url: categories_path, method: :get, :html => { :style => 'display:flex;' }) do |form| %>
+    <%= form.text_field :search, placeholder: "Введіть перші літери назви категорії", class: "form-control", style: "width: 400px"%>
+    <%= form.submit 'Пошук', name: nil, class: "btn btn-outline-secondary", id: "button-addon2" %>
   <% end %>
 </div>
 
-<%= link_to "New category", new_category_path %>
+<div id="categories" class="rounded-4 table-responsive text-nowrap" style="border-color:#707070; margin-left: 80px; margin-right: 80px; background-color: #E8E8E8">
+    <table class="table table-bordered table-hover table-fixed">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Назва</th>
+        <th scope="col">Опис</th>
+        <th scope="col" style="width: 8px;">Управління</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @categories.each do |category| %>
+        <%= render category %>
+      <% end %>
+    </tbody>
+    </table>
+</div>
+
+<%= link_to "Додати нову категорію", new_category_path, class: "btn btn-primary", style: "margin: 50px 0px 0px 80px" %>
