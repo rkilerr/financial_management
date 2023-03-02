@@ -12,7 +12,7 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get report_by_dates" do
-    get reports_report_by_dates_url
+    get reports_report_by_dates_url, params: { report: "По датам" }
     assert_response :success
   end
 end

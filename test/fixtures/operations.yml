@@ -5,9 +5,13 @@ one:
   odate: 2023-01-17 11:34:15
   description: MyString
   category: one
-
+  transaction_type: "витрата"
+  category_id: 1
 two:
   amount: 9.99
   odate: 2023-01-17 11:34:15
   description: MyString
-  category: two
+  category: two,
+  transaction_type: "дохід"
+  category_id: 1
+
