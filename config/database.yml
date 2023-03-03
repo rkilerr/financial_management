@@ -21,5 +21,10 @@ test:
   database: db/test.sqlite3
 
 production:
-  <<: *default
-  database: db/production.sqlite3
+  adapter: postgresql
+  encoding: unicode
+  database: dlm68i1tkc264
+  host: ec2-3-229-161-70.compute-1.amazonaws.com
+  pool: 5
+  username: ouiqycgfzjbguc
+  password: <%= ENV["HEROKU_PASSWORD_DB"] %>
